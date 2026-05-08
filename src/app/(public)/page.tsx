@@ -19,6 +19,9 @@ import {
   FileCheck,
   BadgeCheck,
   Quote,
+  Sparkles,
+  BarChart2,
+  ImageIcon,
 } from "lucide-react";
 
 // ─── Hero ────────────────────────────────────────────────────────────────────
@@ -883,6 +886,396 @@ function ContactSection() {
   );
 }
 
+// ─── Portal Preview — "Das Cockpit" ──────────────────────────────────────────
+type CockpitTab = "bericht" | "budget" | "material" | "fotos";
+
+function BerichtTabContent() {
+  return (
+    <div className="text-left">
+      <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
+        <div>
+          <p className="text-white/40 text-[10px] uppercase tracking-wider">
+            Wochenbericht KW 11 · 6. Mai 2026
+          </p>
+          <p className="text-white font-bold text-xs">Paphos Villa</p>
+        </div>
+        <div className="flex gap-1.5">
+          <span className="text-[9px] font-semibold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">
+            Im Budget ✓
+          </span>
+          <span className="text-[9px] font-semibold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">
+            Pünktlich ✓
+          </span>
+        </div>
+      </div>
+      <div className="bg-white/5 rounded-lg p-3 mb-3">
+        <p className="text-white/60 text-[11px] leading-relaxed">
+          &ldquo;Woche 11 bestätigt soliden Fortschritt. Badezimmer zu 80%
+          fertig, Fliesenlegen beginnt Donnerstag. Elektro Erstverlegung
+          abgeschlossen.&rdquo;
+        </p>
+      </div>
+      <div className="mb-3">
+        <p className="text-white/30 text-[9px] uppercase tracking-wider mb-2">
+          Abgeschlossen
+        </p>
+        {[
+          "Abdichtung Layer 2 abgeschlossen ✓",
+          "Küche: Abbruch vollständig ✓",
+          "Elektro Erstverlegung alle Räume ✓",
+        ].map((item) => (
+          <div key={item} className="flex items-center gap-2 mb-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/30 flex-shrink-0 flex items-center justify-center">
+              <div className="w-1 h-1 rounded-full bg-emerald-400" />
+            </div>
+            <span className="text-white/60 text-[11px]">{item}</span>
+          </div>
+        ))}
+      </div>
+      <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-2.5">
+        <p className="text-amber-400 text-[10px] font-semibold mb-0.5">
+          ⚡ Eigentümer-Aktion erforderlich
+        </p>
+        <p className="text-white/60 text-[10px]">
+          Fliesenwahl Bodenfliese Küche bis 12. Mai freigeben
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function BudgetTabContent() {
+  const cats = [
+    { name: "Abbruch", pct: 91, paid: "3,2k", planned: "3,5k" },
+    { name: "Sanitär", pct: 70, paid: "8,4k", planned: "12k" },
+    { name: "Elektro", pct: 41, paid: "3,5k", planned: "8,5k" },
+    { name: "Fliesen", pct: 0, paid: "0", planned: "14k" },
+  ];
+  return (
+    <div>
+      <div className="grid grid-cols-3 gap-2 mb-4">
+        {[
+          { label: "Genehmigt", value: "€ 60.000", sub: "" },
+          { label: "Ausgegeben", value: "€ 28.500", sub: "47%" },
+          { label: "Prognose", value: "€ 58.200", sub: "↓ €1.800", green: true },
+        ].map((m) => (
+          <div key={m.label} className="bg-white/5 rounded-lg p-2.5">
+            <p className="text-white/40 text-[9px] uppercase tracking-wider">
+              {m.label}
+            </p>
+            <p
+              className={`font-bold text-xs mt-0.5 ${
+                m.green ? "text-emerald-400" : "text-white"
+              }`}
+            >
+              {m.value}
+            </p>
+            {m.sub && (
+              <p className="text-white/30 text-[9px]">{m.sub}</p>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mb-3">
+        <div className="flex justify-between mb-1">
+          <span className="text-white/40 text-[10px]">Gesamtausgaben</span>
+          <span className="text-white text-[10px] font-semibold">47 %</span>
+        </div>
+        <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div className="w-[47%] h-full bg-[#2563FF] rounded-full" />
+        </div>
+      </div>
+      <div className="space-y-2">
+        {cats.map((c) => (
+          <div key={c.name}>
+            <div className="flex justify-between mb-0.5">
+              <span className="text-white/60 text-[10px]">{c.name}</span>
+              <span className="text-white/30 text-[9px]">
+                €{c.paid} / €{c.planned}
+              </span>
+            </div>
+            <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-[#2563FF]/70 rounded-full"
+                style={{ width: `${c.pct}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MaterialTabContent() {
+  const mats = [
+    {
+      cat: "Bodenfliese",
+      name: "Kalkstein 90×90",
+      status: "ok",
+      img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=60",
+    },
+    {
+      cat: "Küchenfronten",
+      name: "Eiche + Cremeweiß",
+      status: "pending",
+      img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=60",
+    },
+    {
+      cat: "Badfliese",
+      name: "Warmgrau 60×120",
+      status: "pending",
+      img: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=200&q=60",
+    },
+    {
+      cat: "Terrasse",
+      name: "Travertin 80×80",
+      status: "ok",
+      img: "https://images.unsplash.com/photo-1596436021236-89e7f79da0f0?w=200&q=60",
+    },
+  ];
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-3">
+        <p className="text-white/60 text-[11px]">
+          4 Oberflächen · 2 freigegeben
+        </p>
+        <span className="text-[10px] bg-[#2563FF]/20 text-[#7BA7FF] px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1">
+          ✨ KI Vorschau
+        </span>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        {mats.map((m) => (
+          <div
+            key={m.cat}
+            className="bg-white/5 rounded-xl overflow-hidden border border-white/10"
+          >
+            <div className="h-14 overflow-hidden">
+              <img
+                src={m.img}
+                alt={m.cat}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-2">
+              <p className="text-white/40 text-[9px] uppercase tracking-wider">
+                {m.cat}
+              </p>
+              <p className="text-white text-[10px] font-semibold leading-tight">
+                {m.name}
+              </p>
+              <span
+                className={`text-[9px] font-semibold ${
+                  m.status === "ok" ? "text-emerald-400" : "text-amber-400"
+                }`}
+              >
+                {m.status === "ok" ? "✓ Freigegeben" : "⏳ Ausstehend"}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FotosTabContent() {
+  const photos = [
+    "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=60",
+    "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=200&q=60",
+    "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=200&q=60",
+    "https://images.unsplash.com/photo-1599809275671-b5942cabc7a2?w=200&q=60",
+    "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=60",
+    "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=200&q=60",
+  ];
+  return (
+    <div>
+      <p className="text-white/40 text-[10px] uppercase tracking-wider mb-2">
+        KW 11 · 8 Fotos · 06.05.2026
+      </p>
+      <div className="grid grid-cols-3 gap-1.5 mb-2">
+        {photos.map((src, i) => (
+          <div key={i} className="aspect-square rounded-lg overflow-hidden">
+            <img src={src} alt="" className="w-full h-full object-cover" />
+          </div>
+        ))}
+      </div>
+      <p className="text-white/30 text-[10px] text-center">
+        Alle Fotos im Fotoprotokoll ansehen
+      </p>
+    </div>
+  );
+}
+
+function PortalPreviewSection() {
+  const [tab, setTab] = useState<CockpitTab>("bericht");
+
+  const tabs: { id: CockpitTab; label: string; icon: React.ReactNode }[] = [
+    { id: "bericht", label: "Bericht", icon: <FileCheck className="w-3 h-3" /> },
+    { id: "budget", label: "Budget", icon: <BarChart2 className="w-3 h-3" /> },
+    { id: "material", label: "Material", icon: <ImageIcon className="w-3 h-3" /> },
+    { id: "fotos", label: "Fotos", icon: <Camera className="w-3 h-3" /> },
+  ];
+
+  const sidebarItems = [
+    { label: "Dashboard", dot: false },
+    { label: "Wochenbericht", dot: tab === "bericht" },
+    { label: "Materialboard", dot: tab === "material" },
+    { label: "Budget", dot: tab === "budget" },
+    { label: "Fotos", dot: tab === "fotos" },
+    { label: "Issues", dot: false },
+  ];
+
+  return (
+    <section className="py-20 bg-[#0B1F33]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left: copy */}
+          <div>
+            <p className="text-[#2563FF] text-xs font-semibold uppercase tracking-wider mb-4">
+              Das digitale Renovierungs-Cockpit
+            </p>
+            <h2 className="text-3xl font-bold text-white mb-5 leading-tight">
+              Wie ein CEO Berichte und KPIs
+              <br />
+              von seinem Team bekommt.
+            </h2>
+            <p className="text-white/60 leading-relaxed mb-8">
+              Jede Woche liefern wir einen strukturierten Bericht — mit
+              Fortschritt, Budget, offenen Punkten und Fotos. Kein Anruf nötig.
+              Kein Raten. Vollständiger Überblick von überall.
+            </p>
+
+            <div className="space-y-5 mb-8">
+              {[
+                {
+                  icon: <FileCheck className="w-5 h-5" />,
+                  title: "Wochenberichte mit KPIs",
+                  text: "Fortschritt, Budget, offene Punkte — jede Woche strukturiert ins Portal.",
+                },
+                {
+                  icon: <BarChart2 className="w-5 h-5" />,
+                  title: "Live-Budget-Tracking",
+                  text: "Jeder Euro dokumentiert. Prognose vs. Plan auf einen Blick.",
+                },
+                {
+                  icon: <Sparkles className="w-5 h-5" />,
+                  title: "Material-KI-Vorschau",
+                  text: "Fliesen in Ihrem Raum visualisieren — bevor Sie bestellen.",
+                },
+                {
+                  icon: <Camera className="w-5 h-5" />,
+                  title: "Wöchentliches Foto-Protokoll",
+                  text: "Baustellenfotos nach Gewerk und Woche archiviert.",
+                },
+              ].map((f) => (
+                <div key={f.title} className="flex items-start gap-4">
+                  <div className="w-9 h-9 bg-[#2563FF]/15 rounded-xl flex items-center justify-center text-[#2563FF] flex-shrink-0 mt-0.5">
+                    {f.icon}
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold text-sm mb-0.5">
+                      {f.title}
+                    </p>
+                    <p className="text-white/50 text-xs leading-relaxed">
+                      {f.text}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-2 bg-white text-[#0B1F33] font-semibold px-6 py-3.5 rounded-xl hover:bg-[#F4F1EA] transition-all"
+            >
+              Portal Demo ansehen
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* Right: App mockup */}
+          <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+            {/* Browser chrome */}
+            <div className="bg-[#06141F] border-b border-white/10 px-4 py-2.5 flex items-center gap-3">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-400/40" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/40" />
+                <div className="w-2.5 h-2.5 rounded-full bg-green-400/40" />
+              </div>
+              <div className="flex-1 bg-white/8 rounded-md px-3 py-1 text-white/25 text-[10px]">
+                portal.tecta.cy / projekt / paphos-villa
+              </div>
+            </div>
+
+            <div className="flex" style={{ minHeight: 380 }}>
+              {/* Sidebar */}
+              <div className="w-32 bg-[#030D15] border-r border-white/8 p-3 hidden sm:block flex-shrink-0">
+                <div className="flex items-center gap-1.5 mb-5 px-1">
+                  <div className="w-4 h-4 bg-white/10 rounded flex items-center justify-center">
+                    <span className="text-white text-[8px] font-bold">T</span>
+                  </div>
+                  <span className="text-white text-[9px] font-bold">
+                    TECTA Portal
+                  </span>
+                </div>
+                <div className="space-y-0.5">
+                  {sidebarItems.map((item) => (
+                    <div
+                      key={item.label}
+                      className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg ${
+                        item.dot
+                          ? "bg-[#2563FF]/20 text-white"
+                          : "text-white/30"
+                      }`}
+                    >
+                      <div
+                        className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                          item.dot ? "bg-[#2563FF]" : "bg-white/20"
+                        }`}
+                      />
+                      <span className="text-[9px]">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Main */}
+              <div className="flex-1 min-w-0 flex flex-col">
+                {/* Tab bar */}
+                <div className="border-b border-white/8 px-3 pt-2.5 flex gap-0.5 overflow-x-auto">
+                  {tabs.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => setTab(t.id)}
+                      className={`flex items-center gap-1.5 text-[10px] font-semibold px-3 py-1.5 rounded-t-lg transition-colors whitespace-nowrap ${
+                        tab === t.id
+                          ? "bg-white/10 text-white"
+                          : "text-white/35 hover:text-white/60"
+                      }`}
+                    >
+                      {t.icon}
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 p-4 overflow-y-auto">
+                  {tab === "bericht" && <BerichtTabContent />}
+                  {tab === "budget" && <BudgetTabContent />}
+                  {tab === "material" && <MaterialTabContent />}
+                  {tab === "fotos" && <FotosTabContent />}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function HomePage() {
   return (
@@ -890,6 +1283,7 @@ export default function HomePage() {
       <HeroSection />
       <TrustBar />
       <PersonalSection />
+      <PortalPreviewSection />
       <HowItWorksSection />
       <BeforeAfterSection />
       <TestimonialsSection />

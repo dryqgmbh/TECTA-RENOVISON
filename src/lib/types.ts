@@ -216,3 +216,49 @@ export interface AIVisionRequest {
   status: "pending" | "processing" | "complete" | "error";
   created_at: string;
 }
+
+// ─── Room-based Material Board ───────────────────────────────────────────────
+
+export interface MaterialOption {
+  id: string;
+  name: string;
+  description: string;
+  texture_image?: string;
+  color_hex?: string;
+  supplier?: string;
+  cost_class: CostClass;
+  technical_note?: string;
+  price_per_sqm?: number;
+  ai_result_image?: string;
+}
+
+export type SurfacePlacement = "floor" | "wall" | "ceiling" | "fronts" | "worktop" | "fixture";
+
+export interface RoomSurface {
+  id: string;
+  name: string;
+  placement: SurfacePlacement;
+  options: MaterialOption[];
+  selected_option_id?: string;
+  approval_status: MaterialStatus;
+}
+
+export interface ProjectRoom {
+  id: string;
+  name: string;
+  emoji: string;
+  area_sqm?: number;
+  current_photo?: string;
+  surfaces: RoomSurface[];
+}
+
+export interface RoomMaterialBoard {
+  id: string;
+  project_id: string;
+  board_version: number;
+  status: MaterialStatus;
+  style_direction: string;
+  rooms: ProjectRoom[];
+  created_at: string;
+  updated_at: string;
+}
