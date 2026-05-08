@@ -14,11 +14,11 @@ import {
 } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Vision Tool", href: "/vision" },
-  { label: "Case Studies", href: "/#case-studies" },
-  { label: "Services", href: "/#pricing" },
-  { label: "How It Works", href: "/#method" },
+  { label: "KI-Vorschau", href: "/vision" },
+  { label: "So funktioniert's", href: "/#method" },
+  { label: "Leistungen", href: "/#pricing" },
   { label: "FAQ", href: "/#faq" },
+  { label: "Kontakt", href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -114,13 +114,13 @@ export default function Navbar() {
                 href="/login"
                 className="text-sm font-semibold text-[#1F2937] hover:text-[#2563FF] transition-colors"
               >
-                Client Login
+                Eigentümer-Login
               </Link>
               <Link
-                href="/#start"
+                href="/#contact"
                 className="bg-[#2563FF] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#1D50D4] transition-colors"
               >
-                Start Property Review
+                Erstgespräch anfragen
               </Link>
             </>
           )}
