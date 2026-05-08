@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --navy: #0B1F33;
+  --graphite: #1F2937;
+  --arch-blue: #2563FF;
+  --stone-warm: #F4F1EA;
+  --stone-sand: #D8CBB8;
+  --off-white: #FCFBF8;
+  --slate: #667085;
+  --success: #1F8A62;
+  --amber: #C58A1C;
+  --risk: #C64B4B;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--off-white);
+  color: var(--graphite);
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #F4F1EA; }
+::-webkit-scrollbar-thumb { background: #D8CBB8; border-radius: 3px; }
+
+.section-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--arch-blue);
+}
+
+.card-premium {
+  background: white;
+  border: 1px solid #EDE8E0;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(11,31,51,0.06);
+  transition: box-shadow 0.2s ease;
+}
+
+.card-premium:hover {
+  box-shadow: 0 4px 16px rgba(11,31,51,0.10);
+}
+
+.progress-bar {
+  height: 6px;
+  background: #EDE8E0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--arch-blue);
+  transition: width 0.6s ease;
+}
+
+.premium-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.premium-table th {
+  text-align: left;
+  padding: 10px 16px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slate);
+  border-bottom: 1px solid #EDE8E0;
+}
+.premium-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #F4F1EA;
+  color: var(--graphite);
+}
+.premium-table tr:last-child td { border-bottom: none; }
+
+.input-field {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #E5DDD0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+  color: var(--graphite);
+  transition: border-color 0.15s ease;
+  outline: none;
+}
+.input-field:focus { border-color: var(--arch-blue); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.35s ease forwards; }
+
+@keyframes pulseSoft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.pulse-soft { animation: pulseSoft 2s ease-in-out infinite; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spin { animation: spin 1s linear infinite; }
